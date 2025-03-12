@@ -12,6 +12,7 @@ const loadFonts = async () => {
   await Font.loadAsync({
     "ABeeZee-Regular": require("./assets/fonts/ABeeZee-Regular.ttf"),
     "PlayfairDisplay-VariableFont_wght": require("./assets/fonts/PlayfairDisplay-VariableFont_wght.ttf"),
+    "pingfang-sc-regular": require("./assets/fonts/pingfang-sc-regular.ttf"),
   });
 };
 

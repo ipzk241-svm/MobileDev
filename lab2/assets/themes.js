@@ -15,4 +15,5 @@ export const darkTheme = {
   iconActive: "rgba(75, 86, 100, 1)",
   iconNonActive: "rgba(255, 255, 255, 1)",
   navBarBG: "rgba(18, 20, 28, 1)",
+  icon_color: "rgba(85, 91, 111, 1)",
 };

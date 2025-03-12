@@ -34,7 +34,10 @@ const CustomHeader = ({ title, isSearchEnabled = false, onSearch }) => {
           gap: 5,
         }}
       >
-        <Image style={styles.logo} source={require("../assets/images/logo.png")} />
+        <Image
+          style={styles.logo}
+          source={require("../assets/images/logo.png")}
+        />
         <Text style={styles.headerText}>{title}</Text>
       </View>
       <View style={styles.headerSearch}>
@@ -63,7 +66,7 @@ const CustomHeader = ({ title, isSearchEnabled = false, onSearch }) => {
               <TouchableOpacity onPress={handleCloseSearch}>
                 <Image
                   source={require("../assets/images/close_icon.png")}
-                  style={styles.icon}
+                  style={[styles.icon, { tintColor: theme.icon_color }]}
                 />
               </TouchableOpacity>
             )}
@@ -108,7 +111,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: 16,
     height: 16,
-    tintColor: "white",
     resizeMode: "cover",
   },
 });
