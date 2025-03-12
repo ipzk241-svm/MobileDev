@@ -1,0 +1,18 @@
+// themes.js
+export const lightTheme = {
+  background: "#FFFFFF",
+  text1: "#000000",
+  text2: "#6200EE",
+  iconActive: "rgba(75, 86, 100, 1)",
+  iconNonActive: "rgba(255, 255, 255, 1)",
+  navBarBG: "rgba(18, 20, 28, 1)",
+};
+
+export const darkTheme = {
+  background: "rgba(28, 32, 44, 1)",
+  text1: "rgba(255, 255, 255, 1)",
+  text2: "rgba(123, 141, 157, 1)",
+  iconActive: "rgba(75, 86, 100, 1)",
+  iconNonActive: "rgba(255, 255, 255, 1)",
+  navBarBG: "rgba(18, 20, 28, 1)",
+};
