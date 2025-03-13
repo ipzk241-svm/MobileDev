@@ -8,4 +8,13 @@ const gamesFilters = [
   "Strategy",
 ];
 
-export { gamesFilters };
+const newsFilters = [
+  "All",
+  "Screenshots",
+  "Artwork",
+  "Videos",
+  "Workshop",
+  "News",
+];
+
+export { gamesFilters, newsFilters };

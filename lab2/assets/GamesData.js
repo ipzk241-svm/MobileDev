@@ -30,6 +30,7 @@ const games = [
     id: 1,
     title: "Grand Theft Auto V",
     image: require("../assets/images/gta5.png"),
+    info: "Recommended by your friend, Player",
     platforms: [
       {
         id: 1,
@@ -38,13 +39,14 @@ const games = [
       },
     ],
     price: 20,
-    discount: 0.5, 
+    discount: 0.5,
     isTM: false,
   },
   {
     id: 2,
     title: "Battlefield 4",
     image: require("../assets/images/battlefield4.png"),
+    info: "Recommended by your friend, Player",
     platforms: [
       {
         id: 1,
@@ -60,6 +62,7 @@ const games = [
     id: 3,
     title: "Factorio",
     image: require("../assets/images/factorio.png"),
+    info: "Recommended by your friend, Player",
     platforms: [
       {
         id: 1,
@@ -80,6 +83,7 @@ const games = [
     id: 4,
     title: "Horizon Zero Dawn",
     image: require("../assets/images/horizon.png"),
+    info: "Recommended by your friend, Player",
     platforms: [
       {
         id: 1,
@@ -92,6 +96,5 @@ const games = [
     isTM: false,
   },
 ];
-
 
 export { popularGames, games };

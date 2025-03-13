@@ -43,7 +43,7 @@ const Navigation = () => {
                 style={{
                   width: 24,
                   height: 24,
-                  tintColor: focused ? theme.iconNonActive : theme.iconActive,
+                  tintColor: focused ? theme.iconActive : theme.iconNonActive,
                   resizeMode: "contain",
                 }}
               />

@@ -1,27 +1,26 @@
-import React from "react";
-import { View, Text, FlatList, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 
-const GameList = ({ games }) => {
-  const renderItem = ({ item }) => (
+const Game = ({ game }) => {
+  return (
     <View style={styles.item}>
-      <Image source={item.image} style={styles.image} />
+      <Image source={game.image} style={styles.image} />
 
       <View style={styles.infoContainer}>
         <Text style={styles.title}>
-          {item.title} {item.isTM && "™"}
+          {game.title} {game.isTM && "™"}
         </Text>
 
         <View style={styles.platformsContainer}>
-          {item.platforms.map((platform) => (
+          {game.platforms.map((platform) => (
             <View key={platform.id} style={styles.platform}>
               <Image source={platform.icon} style={styles.platformIcon} />
             </View>
           ))}
-          {item.platforms.map((platform, index) => (
+          {game.platforms.map((platform, index) => (
             <View key={platform.id} style={styles.platform}>
               <Text style={styles.platformText}>
                 {platform.name}
-                {index < item.platforms.length - 1 && ","}
+                {index < game.platforms.length - 1 && ","}
               </Text>
             </View>
           ))}
@@ -29,30 +28,22 @@ const GameList = ({ games }) => {
       </View>
       <View style={styles.priceContainer}>
         <View style={styles.priceBox}>
-          {item.discount > 0 && (
-            <Text style={styles.oldPrice}>${item.price}</Text>
+          {game.discount > 0 && (
+            <Text style={styles.oldPrice}>${game.price}</Text>
           )}
           <Text style={styles.newPrice}>
-            ${Math.round(item.price - item.price * item.discount)}
+            ${Math.round(game.price - game.price * game.discount)}
           </Text>
         </View>
-        {item.discount > 0 && (
+        {game.discount > 0 && (
           <View style={styles.discountBox}>
             <Text style={styles.discountText}>
-              -{Math.round(item.discount * 100)}%
+              -{Math.round(game.discount * 100)}%
             </Text>
           </View>
         )}
       </View>
     </View>
-  );
-
-  return (
-    <FlatList
-      data={games}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id.toString()}
-    />
   );
 };
 
@@ -130,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default GameList;
+export default Game;
