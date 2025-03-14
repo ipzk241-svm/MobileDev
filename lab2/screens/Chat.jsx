@@ -1,27 +1,35 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import CustomHeader from "../components/CustomHeader";
 import { useTheme } from "../config/ThemeContext";
+import { SafeAreaView } from "react-native-safe-area-context";
+import TabMenu from "../components/TabMenu";
+import CustomHeader from "../components/CustomHeader";
+import ChatsList from "../components/ChatsList";
+import { chats } from "../assets/ChatData";
+import Friends from "../components/Friends";
 
 const Chat = () => {
   const { theme } = useTheme();
 
+  const tabs = [
+    {
+      id: "openChats",
+      label: "Open chats",
+      component: <ChatsList chats={chats} />,
+    },
+    { id: "myFriends", label: "My friends", component: <Friends /> },
+  ];
+
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <CustomHeader title={"Store"} isSearchEnabled={true} />
-      <Text style={styles.text}>Chat Screen</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
+      <CustomHeader isSearchEnabled={true} title={"Chat"} />
+      <TabMenu tabs={tabs} initialTab="openChats" />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
+  chatContainer: {},
 });
 
 export default Chat;

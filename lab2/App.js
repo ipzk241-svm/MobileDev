@@ -28,13 +28,15 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider>
-      <MenuProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <Navigation Tab={Tab}></Navigation>
-        </GestureHandlerRootView>
-      </MenuProvider>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider>
+        <MenuProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Navigation Tab={Tab}></Navigation>
+          </GestureHandlerRootView>
+        </MenuProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
 
