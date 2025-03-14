@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 10,
+    paddingHorizontal: 15,
     gap: 10,
   },
   imageContainer: {

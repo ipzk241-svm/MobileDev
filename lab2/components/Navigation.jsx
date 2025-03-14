@@ -20,6 +20,8 @@ const Navigation = () => {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
             let iconSource;
+            const isUserScreen = route.name === "User";
+
             switch (route.name) {
               case "Store":
                 iconSource = require("../assets/images/store_icon.png");
@@ -33,19 +35,26 @@ const Navigation = () => {
               case "Safety":
                 iconSource = require("../assets/images/safety_icon.png");
                 break;
-              //   case "User":
-              //     iconSource = require("../assets/images/user_icon.png");
-              //     break;
+              case "User":
+                iconSource = require("../assets/images/userProfilePhoto.png");
+                break;
             }
+
             return (
               <Image
                 source={iconSource}
-                style={{
-                  width: 24,
-                  height: 24,
-                  tintColor: focused ? theme.iconActive : theme.iconNonActive,
-                  resizeMode: "contain",
-                }}
+                style={[
+                  {
+                    width: 24,
+                    height: 24,
+                    tintColor: isUserScreen
+                      ? null
+                      : focused
+                      ? theme.iconActive
+                      : theme.iconNonActive, // TintColor тільки для не-User
+                    resizeMode: "contain",
+                  },
+                ]}
               />
             );
           },

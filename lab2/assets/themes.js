@@ -1,11 +1,21 @@
-// themes.js
 export const lightTheme = {
-  background: "#FFFFFF",
-  text1: "#000000",
-  text2: "#6200EE",
-  iconActive: "rgba(75, 86, 100, 1)",
-  iconNonActive: "rgba(255, 255, 255, 1)",
-  navBarBG: "rgba(18, 20, 28, 1)",
+  background: "rgba(245, 245, 245, 1)",
+  backgroundBlacker: "rgba(230, 230, 230, 1)",
+  backgroundMenu: "rgba(0, 120, 255, 1)",
+  text1: "rgba(51, 51, 51, 1)",
+  text2: "rgba(102, 102, 102, 1)",
+  text3: "rgba(0, 120, 255, 1)",
+  iconActive: "rgba(0, 120, 255, 1)",
+  iconActiveGreen: "rgba(0, 180, 60, 1)",
+  iconNonActive: "rgba(150, 150, 150, 1)",
+  navBarBG: "rgba(255, 255, 255, 1)",
+  icon_color: "rgba(120, 120, 120, 1)",
+  borderColor: "rgba(200, 200, 200, 1)",
+  tabActive: "rgba(255, 255, 255, 1)",
+  tabNonActive: "transparent",
+  gradientStart: "rgba(255, 255, 255, 0.0001)",
+  gradientMid: "#F0F0F0",
+  gradientEnd: "#F0F0F0",
 };
 
 export const darkTheme = {
@@ -23,7 +33,6 @@ export const darkTheme = {
   borderColor: "rgba(48, 54, 73, 1)",
   tabActive: "rgba(28, 32, 44, 1)",
   tabNonActive: "transparent",
-
   gradientStart: "rgba(28, 32, 44, 0.0001)",
   gradientMid: "#1C202C",
   gradientEnd: "#1C202C",

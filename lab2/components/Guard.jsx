@@ -9,19 +9,19 @@ const options = [
   {
     id: "1",
     label: "Remove Authenticator",
-    onPress: () => alert("Remove Authenticator"),
+    component: <Text style={{ color: "red" }}>Help</Text>,
     icon: "arrow-forward-ios",
   },
   {
     id: "2",
     label: "My Recovery Code",
-    onPress: () => alert("My Recovery Code"),
+    component: <Text style={{ color: "red" }}>Remove Auth</Text>,
     icon: "arrow-forward-ios",
   },
   {
     id: "3",
     label: "Help",
-    onPress: () => alert("Help"),
+    component: <Text style={{ color: "red" }}>Help</Text>,
     icon: "arrow-forward-ios",
   },
 ];
@@ -33,8 +33,7 @@ const Guard = () => {
   return (
     <View style={styles.guardContainer}>
       <AuthCodeDisplay code={code} progress={progress} />
-
-      <View>
+      <View style={{ paddingHorizontal: 15 }}>
         <Text style={[styles.descriptionText, { color: theme.text1 }]}>
           You'll enter your code each time you enter your password to sign in to
           your Steam account.
