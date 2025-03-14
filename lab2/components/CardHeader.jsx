@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image } from "react-native";
+import styled from "styled-components/native";
 import {
   Menu,
   MenuOption,
@@ -8,69 +9,48 @@ import {
 } from "react-native-popup-menu";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-const CardHeader = ({ source, published, onMenuPress, theme }) => {
-  return (
-    <View style={styles.cardHeader}>
-      <View style={{ flexDirection: "row", gap: 10 }}>
-        <Image style={styles.logo} source={source.logo} />
-        <View style={styles.source}>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <Text style={[styles.sourceName, { color: theme.text1 }]}>
-              {source.name}
-            </Text>
-            <Text style={styles.sourcetype}>{source.type.toUpperCase()}</Text>
-          </View>
-          <Text style={styles.published}>
-            {published.date} • {published.time}
-          </Text>
-        </View>
-      </View>
-      <Menu>
-        <MenuTrigger>
-          <Icon name="more-horiz" size={24} color="rgba(75, 86, 100, 1)" />
-        </MenuTrigger>
-        <MenuOptions customStyles={optionsStyles}>
-          <MenuOption onSelect={() => alert("Shared!")} text="Share" />
-          <MenuOption onSelect={() => alert("Saved!")} text="Save" />
-          <MenuOption onSelect={() => alert("Reported!")} text="Report" />
-        </MenuOptions>
-      </Menu>
-    </View>
-  );
-};
+const CardHeaderStyled = styled.View`
+  flex: 1;
+  justify-content: space-between;
+  flex-direction: row;
+`;
 
-const styles = StyleSheet.create({
-  cardHeader: {
-    flex: 1,
-    justifyContent: "space-between",
-    flexDirection: "row",
-  },
-  logo: {
-    width: 34,
-    height: 34,
-    borderRadius: 50,
-  },
-  source: {
-    justifyContent: "center",
-  },
-  sourceName: {
-    fontFamily: "pingfang-sc-regular",
-    fontSize: 16,
-  },
-  sourcetype: {
-    fontFamily: "pingfang-sc-regular",
-    fontSize: 8,
-    color: "rgba(255, 255, 255, 1)",
-    backgroundColor: "rgb(174, 31, 150)",
-    paddingHorizontal: 4,
-    paddingVertical: 2,
-    borderRadius: 5,
-  },
-  published: {
-    fontFamily: "ABeeZee-Regular",
-    color: "rgba(123, 141, 157, 1)",
-  },
-});
+const LogoStyled = styled.Image`
+  width: 34px;
+  height: 34px;
+  border-radius: 50px;
+`;
+
+const SourceStyled = styled.View`
+  justify-content: center;
+`;
+
+const SourceInfoStyled = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+`;
+
+const SourceNameStyled = styled.Text`
+  font-family: "pingfang-sc-regular";
+  font-size: 16px;
+  color: ${({ theme }) => theme.text1};
+`;
+
+const SourceTypeStyled = styled.Text`
+  font-family: "pingfang-sc-regular";
+  font-size: 8px;
+  color: rgba(255, 255, 255, 1);
+  background-color: rgb(174, 31, 150);
+  padding-horizontal: 4px;
+  padding-vertical: 2px;
+  border-radius: 5px;
+`;
+
+const PublishedStyled = styled.Text`
+  font-family: "ABeeZee-Regular";
+  color: rgba(123, 141, 157, 1);
+`;
 
 const optionsStyles = {
   optionsContainer: {
@@ -86,6 +66,35 @@ const optionsStyles = {
     color: "#333",
     fontSize: 16,
   },
+};
+
+const CardHeader = ({ source, published, onMenuPress, theme }) => {
+  return (
+    <CardHeaderStyled>
+      <View style={{ flexDirection: "row", gap: 10 }}>
+        <LogoStyled source={source.logo} />
+        <SourceStyled>
+          <SourceInfoStyled>
+            <SourceNameStyled theme={theme}>{source.name}</SourceNameStyled>
+            <SourceTypeStyled>{source.type.toUpperCase()}</SourceTypeStyled>
+          </SourceInfoStyled>
+          <PublishedStyled>
+            {published.date} • {published.time}
+          </PublishedStyled>
+        </SourceStyled>
+      </View>
+      <Menu>
+        <MenuTrigger>
+          <Icon name="more-horiz" size={24} color="rgba(75, 86, 100, 1)" />
+        </MenuTrigger>
+        <MenuOptions customStyles={optionsStyles}>
+          <MenuOption onSelect={() => alert("Shared!")} text="Share" />
+          <MenuOption onSelect={() => alert("Saved!")} text="Save" />
+          <MenuOption onSelect={() => alert("Reported!")} text="Report" />
+        </MenuOptions>
+      </Menu>
+    </CardHeaderStyled>
+  );
 };
 
 export default CardHeader;

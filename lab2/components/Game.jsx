@@ -1,24 +1,33 @@
 import { View, Text, StyleSheet, Image } from "react-native";
+import { useTheme } from "../config/ThemeContext";
 
 const Game = ({ game }) => {
+  const { theme } = useTheme();
+
   return (
     <View style={styles.item}>
       <Image source={game.image} style={styles.image} />
 
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>
+        <Text style={[styles.title, { color: theme.text1 }]}>
           {game.title} {game.isTM && "™"}
         </Text>
 
         <View style={styles.platformsContainer}>
           {game.platforms.map((platform) => (
             <View key={platform.id} style={styles.platform}>
-              <Image source={platform.icon} style={styles.platformIcon} />
+              <Image
+                source={platform.icon}
+                style={[
+                  styles.platformIcon,
+                  { tintColor: theme.iconNonActive },
+                ]}
+              />
             </View>
           ))}
           {game.platforms.map((platform, index) => (
             <View key={platform.id} style={styles.platform}>
-              <Text style={styles.platformText}>
+              <Text style={[styles.platformText, { color: theme.text2 }]}>
                 {platform.name}
                 {index < game.platforms.length - 1 && ","}
               </Text>
@@ -29,15 +38,17 @@ const Game = ({ game }) => {
       <View style={styles.priceContainer}>
         <View style={styles.priceBox}>
           {game.discount > 0 && (
-            <Text style={styles.oldPrice}>${game.price}</Text>
+            <Text style={[styles.oldPrice, { color: theme.text2 }]}>
+              ${game.price}
+            </Text>
           )}
-          <Text style={styles.newPrice}>
+          <Text style={[styles.newPrice, { color: theme.text1 }]}>
             ${Math.round(game.price - game.price * game.discount)}
           </Text>
         </View>
         {game.discount > 0 && (
           <View style={styles.discountBox}>
-            <Text style={styles.discountText}>
+            <Text style={[styles.discountText, { color: theme.text1 }]}>
               -{Math.round(game.discount * 100)}%
             </Text>
           </View>
@@ -67,7 +78,6 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   title: {
-    color: "#FFF",
     fontSize: 16,
     fontWeight: "bold",
   },
@@ -86,7 +96,6 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   platformText: {
-    color: "#A0AEC0",
     fontSize: 12,
   },
   priceContainer: {
@@ -95,11 +104,9 @@ const styles = StyleSheet.create({
   oldPrice: {
     textDecorationLine: "line-through",
     fontFamily: "pingfang-sc-regular",
-    color: "#A0AEC0",
     fontSize: 12,
   },
   newPrice: {
-    color: "rgba(255, 255, 255, 1)",
     fontFamily: "pingfang-sc-regular",
     fontSize: 18,
   },
@@ -115,7 +122,6 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   discountText: {
-    color: "rgba(255, 255, 255, 1)",
     fontSize: 12,
     fontFamily: "pingfang-sc-regular",
   },

@@ -41,10 +41,12 @@ const CustomHeader = ({
           }}
         >
           <Image
-            style={styles.logo}
+            style={[styles.logo, { tintColor: theme.logoColor }]}
             source={require("../assets/images/logo.png")}
           />
-          <Text style={styles.headerText}>{title}</Text>
+          <Text style={[styles.headerText, { color: theme.text1 }]}>
+            {title}
+          </Text>
         </View>
         <View style={styles.headerSearch}>
           {isSearchEnabled && (
@@ -80,11 +82,13 @@ const CustomHeader = ({
           )}
         </View>
       </View>
-      <View style={{ paddingHorizontal: 15 }}>
-        <Text style={[styles.description, { color: theme.text2 }]}>
-          {description}
-        </Text>
-      </View>
+      {description && (
+        <View style={{ paddingHorizontal: 15 }}>
+          <Text style={[styles.description, { color: theme.text2 }]}>
+            {description}
+          </Text>
+        </View>
+      )}
     </View>
   );
 };

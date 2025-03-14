@@ -25,7 +25,7 @@ const CommunityContentCard = ({ content }) => {
         likes={content.engagement.likes}
         comments={content.engagement.comments}
         theme={theme}
-        onSharePress={() => alert("Shared!")} // Передаємо функцію для поділитися
+        onSharePress={() => alert("Shared!")}
       />
     </View>
   );

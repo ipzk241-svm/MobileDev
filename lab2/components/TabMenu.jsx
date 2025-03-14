@@ -55,7 +55,14 @@ const TabMenu = ({
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <View style={[styles.tabContainer, tabContainerStyle, styles.tabList]}>
+      <View
+        style={[
+          styles.tabContainer,
+          tabContainerStyle,
+          styles.tabList,
+          { backgroundColor: theme.borderColor },
+        ]}
+      >
         <View style={styles.tabRow}>{tabs.map((item) => renderTab(item))}</View>
       </View>
       <View style={[styles.contentContainer, contentContainerStyle]}>
@@ -68,7 +75,6 @@ const TabMenu = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingHorizontal: 15,
   },
   tabContainer: {
     justifyContent: "space-between",
@@ -91,7 +97,6 @@ const styles = StyleSheet.create({
   tabList: {
     borderRadius: 7,
     padding: 2,
-    backgroundColor: "rgba(48, 54, 73, 1)",
   },
   contentContainer: {
     flex: 1,

@@ -23,7 +23,7 @@ const OptionsList = ({ options }) => {
     return (
       <View>
         <TouchableOpacity
-          style={styles.optionItem}
+          style={[styles.optionItem, { backgroundColor: theme.optionBG }]}
           onPress={() => handlePress(item.id)}
         >
           <Text style={[styles.optionText, { color: theme.text1 }]}>
@@ -34,7 +34,7 @@ const OptionsList = ({ options }) => {
           )}
         </TouchableOpacity>
         {isExpanded && item.component && (
-          <View style={styles.expandedContent}>{item.component}</View>
+          <View style={[styles.expandedContent]}>{item.component}</View>
         )}
       </View>
     );
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
   optionItem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "rgba(32, 37, 50, 1)",
     padding: 15,
     borderRadius: 5,
     marginBottom: 1,
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
   },
   expandedContent: {
     padding: 15,
-    backgroundColor: "rgba(40, 46, 62, 1)",
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
   },

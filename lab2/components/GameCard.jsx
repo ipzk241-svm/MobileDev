@@ -1,125 +1,118 @@
-import {
-  Dimensions,
-  ImageBackground,
-  Image,
-  Text,
-  View,
-  StyleSheet,
-} from "react-native";
+import React from "react";
+import { Dimensions, Image } from "react-native";
+import styled from "styled-components/native";
 
 const { width } = Dimensions.get("window");
 
+// Стилізовані компоненти
+const GameItem = styled.ImageBackground`
+  width: ${width - 60}px;
+  height: 230px;
+  margin-right: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-direction: row;
+  align-items: flex-end;
+`;
+
+const GameInfo = styled.View`
+  flex: 1;
+  justify-content: flex-end;
+  padding: 15px;
+  gap: 5px;
+`;
+
+const GameTitle = styled.Text`
+  font-family: "ABeeZee-Regular";
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+const Description = styled.Text`
+  font-family: "ABeeZee-Regular";
+  color: rgb(240, 228, 228);
+  font-size: 13px;
+  overflow: visible;
+`;
+
+const PriceContainer = styled.View`
+  width: auto;
+  overflow: hidden;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 0;
+`;
+
+const PriceBox = styled.Text`
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  padding: 1px 6px 1px 5px;
+  border-radius: 3px;
+`;
+
+const Discount = styled(PriceBox)`
+  background-color: rgba(5, 238, 1, 0.5);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+`;
+
+const Price = styled.View`
+  background-color: rgba(0, 0, 0, 0.64);
+  flex-direction: row;
+  font-family: "pingfang-sc-regular";
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  padding: 1px 6px 1px 5px;
+  border-radius: 3px;
+`;
+
+const OldPrice = styled.Text`
+  text-decoration-line: line-through;
+  font-family: "pingfang-sc-regular";
+  color: rgb(221, 214, 214);
+  font-size: 12px;
+`;
+
+const NewPrice = styled.Text`
+  color: rgb(255, 255, 255);
+  font-family: "pingfang-sc-regular";
+  font-size: 12px;
+  padding-left: 5px;
+`;
+
+const Icon = styled.Image`
+  width: 16.5px;
+  height: 16.5px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+`;
+
 const GameCard = ({ game }) => {
   return (
-    <ImageBackground
-      source={game.image}
-      style={styles.gameItem}
-      resizeMode="cover"
-    >
-      <View style={styles.gameInfo}>
-        <Text style={styles.gameTitle}>{game.title}</Text>
-        <Text style={styles.description}>{game.info}</Text>
+    <GameItem source={game.image} resizeMode="cover">
+      <GameInfo>
+        <GameTitle>{game.title}</GameTitle>
+        <Description>{game.info}</Description>
 
-        <View style={styles.priceContainer}>
+        <PriceContainer>
           {game.discount > 0 && (
-            <Text style={[styles.discount, styles.priceBox]}>
-              -{Math.round(game.discount * 100)}%
-            </Text>
+            <Discount>-{Math.round(game.discount * 100)}%</Discount>
           )}
 
-          <View style={[styles.price, styles.priceBox]}>
+          <Price>
             {game.discount > 0 && (
-              <Text style={styles.oldPrice}>$ {Math.round(game.price)}</Text>
+              <OldPrice>$ {Math.round(game.price)}</OldPrice>
             )}
-            <Text style={styles.newPrice}>
+            <NewPrice>
               $ {Math.round(game.price - game.price * game.discount)}
-            </Text>
-          </View>
-        </View>
-      </View>
-      <Image
-        style={styles.icon}
-        source={require("../assets/images/windows_icon.png")}
-      ></Image>
-    </ImageBackground>
+            </NewPrice>
+          </Price>
+        </PriceContainer>
+      </GameInfo>
+      <Icon source={require("../assets/images/windows_icon.png")} />
+    </GameItem>
   );
 };
-
-const styles = StyleSheet.create({
-  gameItem: {
-    width: width - 60,
-    height: 230,
-    marginRight: 16,
-    borderRadius: 10,
-    overflow: "hidden",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "flex-end",
-  },
-  gameInfo: {
-    flex: 1,
-    justifyContent: "flex-end",
-    padding: 15,
-    gap: 5,
-  },
-  gameTitle: {
-    fontFamily: "ABeeZee-Regular",
-    color: "rgb(255, 255, 255)",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  description: {
-    fontFamily: "ABeeZee-Regular",
-    color: "rgb(240, 228, 228)",
-    fontSize: 13,
-    overflow: "visible",
-  },
-  priceBox: {
-    color: "rgb(255, 255, 255)",
-    fontSize: 12,
-    paddingTop: 1,
-    paddingBottom: 1,
-    paddingLeft: 5,
-    paddingRight: 6,
-    borderRadius: 3,
-  },
-  discount: {
-    backgroundColor: "rgba(5, 238, 1, 0.5)",
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-  },
-  priceContainer: {
-    width: "auto",
-    overflow: "hidden",
-    flexDirection: "row",
-    alignItems: "center",
-    borderRadius: 0,
-  },
-  price: {
-    backgroundColor: "rgba(0, 0, 0, 0.64)",
-    flexDirection: "row",
-    fontFamily: "pingfang-sc-regular",
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
-  },
-  oldPrice: {
-    textDecorationLine: "line-through",
-    fontFamily: "pingfang-sc-regular",
-    color: "rgb(221, 214, 214)",
-    fontSize: 12,
-  },
-  newPrice: {
-    color: "rgb(255, 255, 255)",
-    fontFamily: "pingfang-sc-regular",
-    fontSize: 12,
-    paddingLeft: 5,
-  },
-  icon: {
-    width: 16.5,
-    height: 16.5,
-    marginRight: 10,
-    marginBottom: 20,
-  },
-});
 
 export default GameCard;

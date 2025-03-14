@@ -13,7 +13,7 @@ const Community = () => {
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <CustomHeader
-        title={"Store"}
+        title={"Community"}
         description={
           "Community and official content for all games and software"
         }

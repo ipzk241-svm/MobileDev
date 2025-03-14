@@ -37,12 +37,16 @@ const FilterBar = ({ filters, onSelect, showSearch = false, onSearch }) => {
         <View
           style={[
             styles.filterButton,
-            { flexDirection: "row", alignItems: "center" },
+            {
+              flexDirection: "row",
+              alignItems: "center",
+              backgroundColor: theme.filterBg,
+            },
           ]}
         >
           {isSearchActive ? (
             <TextInput
-              style={styles.searchInput}
+              style={[styles.searchInput, { backgroundColor: theme.filterBg }]}
               placeholder="Пошук..."
               value={searchQuery}
               onChangeText={(text) => {
@@ -79,6 +83,7 @@ const FilterBar = ({ filters, onSelect, showSearch = false, onSearch }) => {
             <TouchableOpacity
               style={[
                 styles.filterButton,
+                { backgroundColor: theme.filterBg },
                 selectedFilter === item && styles.activeFilter,
               ]}
               onPress={() => handleFilterPress(item)}
@@ -100,14 +105,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchInput: {
-    backgroundColor: "#2a2d3a",
+    // backgroundColor: "rgb(42 45 58)",
     color: "#fff",
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
   },
   filterButton: {
-    backgroundColor: "#2a2d3a",
+    // backgroundColor: "rgb(42 45 58)",
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 14,

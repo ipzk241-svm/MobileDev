@@ -21,15 +21,20 @@ const Chat = () => {
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
+    <View style={[{ flex: 1, backgroundColor: theme.background }]}>
       <CustomHeader isSearchEnabled={true} title={"Chat"} />
-      <TabMenu tabs={tabs} initialTab="openChats" />
-    </SafeAreaView>
+      <View style={styles.chatContainer}>
+        <TabMenu tabs={tabs} initialTab="openChats" />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  chatContainer: {},
+  chatContainer: {
+    padding: 15,
+    flex: 1,
+  },
 });
 
 export default Chat;

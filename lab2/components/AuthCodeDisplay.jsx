@@ -1,106 +1,97 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ImageBackground,
-  Dimensions,
-} from "react-native";
+import { Dimensions, View } from "react-native";
+import styled from "styled-components/native";
 import { useTheme } from "../config/ThemeContext";
-import { LinearGradient } from "expo-linear-gradient"; // Імпортуємо з expo-linear-gradient
+import { LinearGradient } from "expo-linear-gradient";
+
+const screenWidth = Dimensions.get("window").width;
+
+const Container = styled(View)`
+  /* Порожній контейнер, якщо потрібні стилі, додайте їх */
+`;
+
+const BackgroundImage = styled.ImageBackground`
+  width: ${screenWidth}px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const GradientOverlay = styled(LinearGradient)`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Content = styled.View`
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 40px;
+`;
+
+const LoggedInText = styled.Text`
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: ${({ theme }) => theme.text2};
+`;
+
+const CodeContainer = styled.View`
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+const CodeText = styled.Text`
+  font-size: 54px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+  color: ${({ theme }) => theme.text3};
+`;
+
+const ProgressBar = styled.View`
+  width: 150px;
+  height: 10px;
+  background-color: rgba(28, 32, 44, 1);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+`;
+
+const Progress = styled.View`
+  height: 100%;
+  background-color: #00afff;
+  border-radius: 5px;
+  width: ${({ progress }) => `${progress * 100}%`};
+`;
 
 const AuthCodeDisplay = ({ code, progress }) => {
   const { theme } = useTheme();
-  const screenWidth = Dimensions.get("window").width; // Отримуємо ширину екрану
 
   return (
-    <View style={styles.container}>
-      <ImageBackground
+    <Container>
+      <BackgroundImage
         source={require("../assets/images/bg_gradient.png")}
-        style={[styles.backgroundImage, { width: screenWidth }]}
         resizeMode="cover"
       >
-        <LinearGradient
-          colors={[
-            "rgba(28, 32, 44, 0)",
-            "rgba(28, 32, 44, 1)",
-            "rgba(28, 32, 44, 1)",
-          ]}
+        <GradientOverlay
+          colors={[theme.gradientStart, theme.gradientMid, theme.gradientEnd]}
           start={{ x: 0, y: 1 }}
           end={{ x: 0, y: 0 }}
-          style={styles.gradientOverlay}
         >
-          <View style={styles.content}>
-            <Text style={[styles.loggedInText, { color: theme.text2 }]}>
-              Logged in as player
-            </Text>
-            <View style={styles.codeContainer}>
-              <Text style={[styles.codeText, { color: theme.text1 }]}>
-                {code}
-              </Text>
-              <View style={styles.progressBar}>
-                <View
-                  style={[styles.progress, { width: `${progress * 100}%` }]}
-                />
-              </View>
-            </View>
-          </View>
-        </LinearGradient>
-      </ImageBackground>
-    </View>
+          <Content>
+            <LoggedInText theme={theme}>Logged in as player</LoggedInText>
+            <CodeContainer>
+              <CodeText theme={theme}>{code}</CodeText>
+              <ProgressBar>
+                <Progress progress={progress} />
+              </ProgressBar>
+            </CodeContainer>
+          </Content>
+        </GradientOverlay>
+      </BackgroundImage>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    // Прибрано flex: 1, щоб контейнер адаптувався під вміст
-  },
-  backgroundImage: {
-    // Прибрано flex: 1, висота визначається вмістом
-    width: "100%", // Замінено screenWidth на 100% для адаптивності
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  gradientOverlay: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    // Прибрано flex: 1, висота залежить від content
-  },
-  content: {
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    padding: 40,
-  },
-  loggedInText: {
-    fontSize: 14,
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  codeContainer: {
-    alignItems: "center",
-    marginBottom: 15,
-  },
-  codeText: {
-    fontSize: 54,
-    fontWeight: "bold",
-    letterSpacing: 2,
-    textAlign: "center",
-  },
-  progressBar: {
-    width: 150,
-    height: 10,
-    backgroundColor: "rgba(28, 32, 44, 1)",
-    borderRadius: 5,
-    overflow: "hidden",
-    marginTop: 5,
-  },
-  progress: {
-    height: "100%",
-    backgroundColor: "#00AFFF",
-    borderRadius: 5,
-  },
-});
 
 export default AuthCodeDisplay;

@@ -2,11 +2,18 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-const SocialActions = ({ likes, comments, theme, onSharePress }) => {
+const SocialActions = ({
+  likes,
+  comments,
+  theme,
+  onSharePress,
+  onLikePress,
+}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleLikePress = () => {
     setIsLiked(!isLiked);
+    if (typeof onLikePress === "function") onLikePress();
   };
 
   return (

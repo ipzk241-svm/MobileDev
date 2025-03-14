@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     borderBottomColor: "#333",
   },
   chatContainer:{
-    paddingHorizontal: 15,
   },
   unread: {
     color: "white",
