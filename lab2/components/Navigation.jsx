@@ -8,6 +8,11 @@ import Community from "../screens/Community";
 import Chat from "../screens/Chat";
 import Safety from "../screens/Safety";
 import UserProfile from "../screens/UserProfile";
+// Імпорт SVG як компонентів
+import StoreIcon from "../assets/images/store_icon.svg";
+import CommunityIcon from "../assets/images/community_icon.svg";
+import ChatIcon from "../assets/images/chat_icon.svg";
+import SafetyIcon from "../assets/images/safety_icon.svg";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,42 +24,44 @@ const Navigation = () => {
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused }) => {
-            let iconSource;
             const isUserScreen = route.name === "User";
 
+            if (isUserScreen) {
+              return (
+                <Image
+                  source={require("../assets/images/userProfilePhoto.png")}
+                  style={{
+                    width: 24,
+                    height: 24,
+                    resizeMode: "contain",
+                  }}
+                />
+              );
+            }
+
+            let IconComponent;
             switch (route.name) {
               case "Store":
-                iconSource = require("../assets/images/store_icon.png");
+                IconComponent = StoreIcon;
                 break;
               case "Community":
-                iconSource = require("../assets/images/community_icon.png");
+                IconComponent = CommunityIcon;
                 break;
               case "Chat":
-                iconSource = require("../assets/images/chat_icon.png");
+                IconComponent = ChatIcon;
                 break;
               case "Safety":
-                iconSource = require("../assets/images/safety_icon.png");
+                IconComponent = SafetyIcon;
                 break;
-              case "User":
-                iconSource = require("../assets/images/userProfilePhoto.png");
-                break;
+              default:
+                return null;
             }
 
             return (
-              <Image
-                source={iconSource}
-                style={[
-                  {
-                    width: 24,
-                    height: 24,
-                    tintColor: isUserScreen
-                      ? null
-                      : focused
-                      ? theme.iconActive
-                      : theme.iconNonActive, // TintColor тільки для не-User
-                    resizeMode: "contain",
-                  },
-                ]}
+              <IconComponent
+                width={24}
+                height={24}
+                fill={focused ? theme.iconActive : theme.iconNonActive}
               />
             );
           },
