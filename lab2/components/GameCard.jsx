@@ -4,7 +4,6 @@ import styled from "styled-components/native";
 
 const { width } = Dimensions.get("window");
 
-// Стилізовані компоненти
 const GameItem = styled.ImageBackground`
   width: ${width - 60}px;
   height: 230px;

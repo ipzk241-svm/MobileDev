@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import Game from "./Game";
 
 const GameList = ({ games }) => {
+  const [infiniteGames, setInfiniteGames] = useState([...games, ...games]); 
+    const duplicateGames = () => {
+      setInfiniteGames((prevGames) => [...prevGames, ...games]);
+    };
+  
+    const handleEndReached = () => {
+      duplicateGames();
+    };
   const renderItem = ({ item }) => <Game game={item} />;
 
   return (
     <FlatList
-      data={games}
+      data={infiniteGames}
+      keyExtractor={(item, index) => `${item.id}-${index}`}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id.toString()}
+      decelerationRate="fast"
+      onEndReached={handleEndReached}
+      onEndReachedThreshold={0.5}
     />
   );
 };

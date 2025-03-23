@@ -105,14 +105,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   searchInput: {
-    // backgroundColor: "rgb(42 45 58)",
     color: "#fff",
     borderRadius: 8,
     padding: 10,
     marginBottom: 10,
   },
   filterButton: {
-    // backgroundColor: "rgb(42 45 58)",
     borderRadius: 8,
     paddingVertical: 8,
     paddingHorizontal: 14,

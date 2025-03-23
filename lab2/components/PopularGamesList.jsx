@@ -14,8 +14,7 @@ const GameList = styled(FlatList)`
 `;
 
 const PopularGamesList = ({ games }) => {
-  const [infiniteGames, setInfiniteGames] = useState([...games, ...games]); // Початкове дублювання для циклу
-  const flatListRef = useRef(null);
+  const [infiniteGames, setInfiniteGames] = useState([...games, ...games]); 
 
   const duplicateGames = () => {
     setInfiniteGames((prevGames) => [...prevGames, ...games]);
@@ -32,7 +31,6 @@ const PopularGamesList = ({ games }) => {
   return (
     <Container>
       <GameList
-        ref={flatListRef}
         data={infiniteGames}
         keyExtractor={(item, index) => `${item.id}-${index}`}
         renderItem={renderItem}
@@ -40,7 +38,7 @@ const PopularGamesList = ({ games }) => {
         showsHorizontalScrollIndicator={false}
         decelerationRate="fast"
         onEndReached={handleEndReached}
-        onEndReachedThreshold={0.5} // Виклик за 50% до кінця
+        onEndReachedThreshold={0.5}
       />
     </Container>
   );

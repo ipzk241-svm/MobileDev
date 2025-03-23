@@ -95,6 +95,22 @@ const games = [
     discount: 0,
     isTM: false,
   },
+  {
+    id: 5,
+    title: "Horizon Zero Dawn",
+    image: require("../assets/images/horizon.png"),
+    info: "Recommended by your friend, Player",
+    platforms: [
+      {
+        id: 1,
+        name: "Windows",
+        icon: require("../assets/images/windows_icon.png"),
+      },
+    ],
+    price: 38,
+    discount: 0,
+    isTM: false,
+  },
 ];
 
 export { popularGames, games };
