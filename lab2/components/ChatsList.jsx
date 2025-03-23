@@ -1,6 +1,7 @@
 import React from "react";
-import { View, FlatList, Text, StyleSheet, Image } from "react-native";
+import { View, FlatList, Text, Image } from "react-native";
 import { useTheme } from "../config/ThemeContext";
+import styled from "styled-components/native";
 
 const ChatsList = ({ chats }) => {
   const { theme } = useTheme();
@@ -19,93 +20,95 @@ const ChatsList = ({ chats }) => {
   };
 
   const renderChatItem = ({ item }) => (
-    <View style={styles.chatItem}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.userImage} source={item.image} />
-        <View
-          style={[
-            styles.statusCircle,
-            { backgroundColor: getStatusColor(item.status) },
-          ]}
-        />
-      </View>
-      <View style={styles.chatDetails}>
-        <Text style={{ color: theme.text1 }}>{item.name}</Text>
+    <ChatItem>
+      <ImageContainer>
+        <UserImage source={item.image} />
+        <StatusCircle backgroundColor={getStatusColor(item.status)} />
+      </ImageContainer>
+      <ChatDetails>
+        <StyledText color={theme.text1}>{item.name}</StyledText>
         <View style={{ flexDirection: "row" }}>
-          <Text style={{ color: theme.text2 }}>{item.message}</Text>
-          <Text style={{ color: theme.text2 }}> • {item.time}</Text>
+          <StyledText color={theme.text2}>{item.message}</StyledText>
+          <StyledText color={theme.text2}> • {item.time}</StyledText>
         </View>
-      </View>
+      </ChatDetails>
       {item.unread > 0 ? (
-        <Text style={styles.unread}>{item.unread}</Text>
+        <Unread>{item.unread}</Unread>
       ) : item.isReaded ? (
-        <View style={styles.readedCircle} />
+        <ReadedCircle />
       ) : null}
-    </View>
+    </ChatItem>
   );
 
   return (
-    <View style={styles.chatContainer}>
+    <ChatContainer>
       <FlatList
         data={chats}
         renderItem={renderChatItem}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={{ paddingVertical: 10 }}
       />
-    </View>
+    </ChatContainer>
   );
 };
 
 export default ChatsList;
 
-const styles = StyleSheet.create({
-  chatContainer: {
-    flex: 1,
-  },
-  listContent: {
-    paddingVertical: 10,
-  },
-  chatItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingVertical: 10,
-    gap: 10,
-  },
-  imageContainer: {
-    height: "auto",
-    position: "relative",
-  },
-  userImage: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-  },
-  statusCircle: {
-    width: 10,
-    height: 10,
-    borderRadius: 8,
-    position: "absolute",
-    right: 3,
-    bottom: 5,
-  },
-  chatDetails: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  unread: {
-    color: "white",
-    backgroundColor: "rgb(9, 119, 162)",
-    borderRadius: 10,
-    height: 20,
-    width: 20,
-    textAlign: "center",
-    marginLeft: 5,
-  },
-  readedCircle: {
-    width: 8,
-    height: 8,
-    borderRadius: 5,
-    backgroundColor: "white",
-    marginRight: 5,
-  },
-});
+const ChatContainer = styled.View`
+  flex: 1;
+`;
+
+const ChatItem = styled.View`
+  flex-direction: row;
+  align-items: center;
+  padding-vertical: 10px;
+  gap: 10px;
+`;
+
+const ImageContainer = styled.View`
+  height: auto;
+  position: relative;
+`;
+
+const UserImage = styled.Image`
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+`;
+
+const StatusCircle = styled.View`
+  width: 10px;
+  height: 10px;
+  border-radius: 8px;
+  position: absolute;
+  right: 3px;
+  bottom: 5px;
+  background-color: ${(props) => props.backgroundColor || "transparent"};
+`;
+
+const ChatDetails = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
+const StyledText = styled.Text`
+  color: ${(props) => props.color || "black"};
+`;
+
+const Unread = styled.Text`
+  color: white;
+  background-color: rgb(9, 119, 162);
+  border-radius: 10px;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  margin-left: 5px;
+`;
+
+const ReadedCircle = styled.View`
+  width: 8px;
+  height: 8px;
+  border-radius: 5px;
+  background-color: white;
+  margin-right: 5px;
+`;

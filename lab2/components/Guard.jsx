@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import { useTheme } from "../config/ThemeContext";
 import AuthCodeDisplay from "./AuthCodeDisplay";
 import OptionsList from "./OptionsList";
 import useAuthCode from "../hooks/useAuthCode";
+import styled from "styled-components/native";
 
 const options = [
   {
@@ -31,42 +32,49 @@ const Guard = () => {
   const { code, progress } = useAuthCode();
 
   return (
-    <View style={styles.guardContainer}>
+    <GuardContainer>
       <AuthCodeDisplay code={code} progress={progress} />
-      <View style={{ paddingHorizontal: 15 }}>
-        <Text style={[styles.descriptionText, { color: theme.text1 }]}>
+      <DescriptionContainer>
+        <DescriptionText color={theme.text1}>
           You'll enter your code each time you enter your password to sign in to
           your Steam account.
-        </Text>
-        <Text
-          style={[
-            styles.descriptionText,
-            { color: theme.text3, letterSpacing: -0.15 },
-          ]}
-        >
+        </DescriptionText>
+        <TipText color={theme.text3}>
           Tip: if you don't share your PC, you can select "Remember my password"
           when you sign in to the PC client to enter your password and
           authenticator code less often.
-        </Text>
-      </View>
-
+        </TipText>
+      </DescriptionContainer>
       <OptionsList options={options} />
-    </View>
+    </GuardContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  guardContainer: {
-    flex: 1,
-    width: "100%",
-    gap: 20,
-  },
-  descriptionText: {
-    fontSize: 14,
-    fontFamily: "ABeeZee-Regular",
-    marginBottom: 10,
-    lineHeight: 22,
-  },
-});
+const GuardContainer = styled.View`
+  flex: 1;
+  width: 100%;
+  gap: 20px;
+`;
+
+const DescriptionContainer = styled.View`
+  padding-horizontal: 15px;
+`;
+
+const DescriptionText = styled.Text`
+  font-size: 14px;
+  font-family: "ABeeZee-Regular";
+  margin-bottom: 10px;
+  line-height: 22px;
+  color: ${(props) => props.color || "black"};
+`;
+
+const TipText = styled.Text`
+  font-size: 14px;
+  font-family: "ABeeZee-Regular";
+  margin-bottom: 10px;
+  line-height: 22px;
+  color: ${(props) => props.color || "black"};
+  letter-spacing: -0.15px;
+`;
 
 export default Guard;

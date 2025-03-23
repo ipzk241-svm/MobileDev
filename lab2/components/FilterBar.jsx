@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  TextInput,
-  StyleSheet,
-  Image,
-} from "react-native";
+import { FlatList, TouchableOpacity } from "react-native";
 import { useTheme } from "../config/ThemeContext";
+import styled from "styled-components/native";
 
 const FilterBar = ({ filters, onSelect, showSearch = false, onSearch }) => {
   const [selectedFilter, setSelectedFilter] = useState(filters[0]);
@@ -32,21 +25,12 @@ const FilterBar = ({ filters, onSelect, showSearch = false, onSearch }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Container>
       {showSearch && (
-        <View
-          style={[
-            styles.filterButton,
-            {
-              flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: theme.filterBg,
-            },
-          ]}
-        >
+        <FilterButton backgroundColor={theme.filterBg}>
           {isSearchActive ? (
-            <TextInput
-              style={[styles.searchInput, { backgroundColor: theme.filterBg }]}
+            <SearchInput
+              backgroundColor={theme.filterBg}
               placeholder="Пошук..."
               value={searchQuery}
               onChangeText={(text) => {
@@ -56,22 +40,19 @@ const FilterBar = ({ filters, onSelect, showSearch = false, onSearch }) => {
             />
           ) : (
             <TouchableOpacity onPress={handleSearchPress}>
-              <Image
-                source={require("../assets/images/search_icon.png")}
-                style={styles.icon}
-              />
+              <Icon source={require("../assets/images/search_icon.png")} />
             </TouchableOpacity>
           )}
 
           {isSearchActive && (
             <TouchableOpacity onPress={handleCloseSearch}>
-              <Image
+              <Icon
                 source={require("../assets/images/close_icon.png")}
-                style={[styles.icon, { tintColor: theme.icon_color }]}
+                tintColor={theme.icon_color}
               />
             </TouchableOpacity>
           )}
-        </View>
+        </FilterButton>
       )}
       {!isSearchActive && (
         <FlatList
@@ -80,61 +61,63 @@ const FilterBar = ({ filters, onSelect, showSearch = false, onSearch }) => {
           keyExtractor={(item) => item}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              style={[
-                styles.filterButton,
-                { backgroundColor: theme.filterBg },
-                selectedFilter === item && styles.activeFilter,
-              ]}
+            <FilterButton
+              backgroundColor={theme.filterBg}
+              style={selectedFilter === item && styles.activeFilter}
               onPress={() => handleFilterPress(item)}
             >
-              <Text style={[styles.filterText]}>{item}</Text>
-            </TouchableOpacity>
+              <FilterText>{item}</FilterText>
+            </FilterButton>
           )}
         />
       )}
-    </View>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    paddingVertical: 10,
-    paddingHorizontal: 16,
-    alignItems: "center",
-  },
-  searchInput: {
-    color: "#fff",
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 10,
-  },
-  filterButton: {
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 14,
-    marginRight: 10,
-  },
+const Container = styled.View`
+  flex-direction: row;
+  padding-vertical: 10px;
+  padding-horizontal: 16px;
+  align-items: center;
+`;
+
+const FilterButton = styled.TouchableOpacity`
+  border-radius: 8px;
+  padding-vertical: 8px;
+  padding-horizontal: 14px;
+  margin-right: 10px;
+  background-color: ${(props) => props.backgroundColor || "transparent"};
+  flex-direction: row;
+  align-items: center;
+`;
+
+const SearchInput = styled.TextInput`
+  flex: 1;
+  background-color: ${(props) => props.backgroundColor || "white"};
+  border-radius: 8px;
+  height: 40px;
+  margin-right: 10px;
+  color: #fff;
+  padding: 10px;
+`;
+
+const FilterText = styled.Text`
+  color: rgba(255, 255, 255, 1);
+  font-size: 14px;
+`;
+
+const Icon = styled.Image`
+  width: 16px;
+  height: 16px;
+  object-fit: cover;
+  fill: ${(props) => props.icon_color};
+`;
+
+const styles = {
   activeFilter: {
     backgroundColor: "#3cbef6",
   },
-  filterText: {
-    color: "rgba(255, 255, 255, 1)",
-    fontSize: 14,
-  },
-  searchInput: {
-    flex: 1,
-    backgroundColor: "white",
-    borderRadius: 8,
-    height: 40,
-    marginRight: 10,
-  },
-  icon: {
-    width: 16,
-    height: 16,
-    resizeMode: "cover",
-  },
-});
+};
 
 export default FilterBar;

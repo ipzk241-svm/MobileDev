@@ -1,22 +1,25 @@
 import React from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import { useTheme } from "../config/ThemeContext";
+import styled from "styled-components/native";
 
 const Confirmation = () => {
   const { theme } = useTheme();
   return (
-    <View style={styles.confirmationContainer}>
-      <Text style={{ color: theme.text1 }}>Confirmations Content</Text>
-    </View>
+    <ConfirmationContainer>
+      <StyledText color={theme.text1}>Confirmations Content</StyledText>
+    </ConfirmationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  confirmationContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+const ConfirmationContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyledText = styled.Text`
+  color: ${(props) => props.color || "black"};
+`;
 
 export default Confirmation;

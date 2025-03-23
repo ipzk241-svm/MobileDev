@@ -1,38 +1,37 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Image } from "react-native";
 import { useTheme } from "../config/ThemeContext";
+import styled from "styled-components/native";
 
 const UserInfo = ({ name, age, email }) => {
   const { theme } = useTheme();
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={require("../assets/images/userProfilePhoto.png")}
-        style={styles.photo}
-      />
-      <Text style={[styles.text, { color: theme.text1 }]}>Сергійко Василь</Text>
-      <Text style={[styles.text, { color: theme.text1 }]}>ІПЗк-24-1</Text>
-    </View>
+    <Container>
+      <ProfilePhoto source={require("../assets/images/userProfilePhoto.png")} />
+      <InfoText color={theme.text1}>Сергійко Василь</InfoText>
+      <InfoText color={theme.text1}>ІПЗк-24-1</InfoText>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    padding: 20,
-    gap: 10,
-  },
-  photo: {
-    width: 100,
-    height: 100,
-  },
-  text: {
-    fontFamily: "ABeeZee-Regular",
-    fontSize: 16,
-    lineHeight: 22,
-    letterSpacing: -0.18
-  },
-});
+const Container = styled.View`
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+`;
+
+const ProfilePhoto = styled.Image`
+  width: 100px;
+  height: 100px;
+`;
+
+const InfoText = styled.Text`
+  font-family: "ABeeZee-Regular";
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: -0.18px;
+  color: ${(props) => props.color || "black"};
+`;
 
 export default UserInfo;

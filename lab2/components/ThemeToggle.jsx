@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { View, Switch, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { View, Switch } from "react-native";
 import { useTheme } from "../config/ThemeContext";
+import styled from "styled-components/native";
 
 const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
@@ -14,28 +15,28 @@ const ThemeToggle = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.text, { color: theme.text1 }]}>Color theme: </Text>
+    <Container>
+      <ToggleText color={theme.text1}>Color theme: </ToggleText>
       <Switch
         trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isDarkMode ? "#rgb(255, 230, 0)" : "rgb(38, 34, 34)"}
+        thumbColor={isDarkMode ? "rgb(255, 230, 0)" : "rgb(38, 34, 34)"}
         background="#3e3e3e"
         onValueChange={handleToggle}
         value={isDarkMode}
       />
-    </View>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  text: {
-    fontSize: 20,
-  },
-});
+const Container = styled.View`
+  padding: 10px;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const ToggleText = styled.Text`
+  font-size: 20px;
+  color: ${(props) => props.color || "black"};
+`;
 
 export default ThemeToggle;

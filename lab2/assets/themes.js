@@ -33,7 +33,7 @@ export const darkTheme = {
   text3: "rgba(47, 180, 241, 1)",
   iconActive: "rgb(227, 212, 212)",
   iconActiveGreen: "rgba(0, 212, 75, 1)",
-  iconNonActive: "rgb(57, 61, 65)",
+  iconNonActive: "rgb(89, 91, 93)",
   navBarBG: "rgba(18, 20, 28, 1)",
   icon_color: "rgba(85, 91, 111, 1)",
   borderColor: "rgba(48, 54, 73, 1)",

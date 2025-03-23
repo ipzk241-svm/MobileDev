@@ -14,7 +14,7 @@ const GameList = styled(FlatList)`
 `;
 
 const PopularGamesList = ({ games }) => {
-  const [infiniteGames, setInfiniteGames] = useState([...games, ...games]); 
+  const [infiniteGames, setInfiniteGames] = useState([...games, ...games]);
 
   const duplicateGames = () => {
     setInfiniteGames((prevGames) => [...prevGames, ...games]);

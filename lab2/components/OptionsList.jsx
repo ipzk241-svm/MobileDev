@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {
-  FlatList,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  View,
-} from "react-native";
+import { FlatList, TouchableOpacity, View } from "react-native";
 import { useTheme } from "../config/ThemeContext";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import styled from "styled-components/native";
 
 const OptionsList = ({ options }) => {
   const { theme } = useTheme();
@@ -22,53 +17,55 @@ const OptionsList = ({ options }) => {
 
     return (
       <View>
-        <TouchableOpacity
-          style={[styles.optionItem, { backgroundColor: theme.optionBG }]}
+        <OptionItem
+          backgroundColor={theme.optionBG}
           onPress={() => handlePress(item.id)}
         >
-          <Text style={[styles.optionText, { color: theme.text1 }]}>
-            {item.label}
-          </Text>
+          <OptionText color={theme.text1}>{item.label}</OptionText>
           {item.icon && (
             <Icon name={item.icon} size={20} color={theme.iconNonActive} />
           )}
-        </TouchableOpacity>
+        </OptionItem>
         {isExpanded && item.component && (
-          <View style={[styles.expandedContent]}>{item.component}</View>
+          <ExpandedContent>{item.component}</ExpandedContent>
         )}
       </View>
     );
   };
 
   return (
-    <FlatList
-      data={options}
-      renderItem={renderItem}
-      style={styles.listContainer}
-      keyExtractor={(item) => item.id}
-    />
+    <ListContainer>
+      <FlatList
+        data={options}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
+    </ListContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  listContainer: {
-    paddingHorizontal: 15,
-  },
-  optionItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 15,
-    borderRadius: 5,
-    marginBottom: 1,
-  },
-  optionText: {
-    fontSize: 16,
-  },
-  expandedContent: {
-    padding: 15,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
-  },
-});
+const ListContainer = styled.View`
+  padding-horizontal: 15px;
+`;
+
+const OptionItem = styled.TouchableOpacity`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 1px;
+  background-color: ${(props) => props.backgroundColor || "transparent"};
+`;
+
+const OptionText = styled.Text`
+  font-size: 16px;
+  color: ${(props) => props.color || "black"};
+`;
+
+const ExpandedContent = styled.View`
+  padding: 15px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+`;
 
 export default OptionsList;

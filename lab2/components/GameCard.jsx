@@ -1,17 +1,17 @@
 import React from "react";
 import { Dimensions, Image } from "react-native";
-import styled from "styled-components/native";
+import styled from "styled-components";
 
 const { width } = Dimensions.get("window");
 
 const GameItem = styled.ImageBackground`
   width: ${width - 60}px;
   height: 230px;
-  margin-right: 16px;
   border-radius: 10px;
   overflow: hidden;
   flex-direction: row;
   align-items: flex-end;
+  margin-right: 10px;
 `;
 
 const GameInfo = styled.View`

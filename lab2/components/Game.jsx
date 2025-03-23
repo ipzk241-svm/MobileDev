@@ -1,130 +1,141 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import { useTheme } from "../config/ThemeContext";
+import styled from "styled-components/native";
 
 const Game = ({ game }) => {
   const { theme } = useTheme();
 
   return (
-    <View style={styles.item}>
-      <Image source={game.image} style={styles.image} />
-
-      <View style={styles.infoContainer}>
-        <Text style={[styles.title, { color: theme.text1 }]}>
+    <Item>
+      <GameImage source={game.image} />
+      <InfoContainer>
+        <Title color={theme.text1}>
           {game.title} {game.isTM && "™"}
-        </Text>
-
-        <View style={styles.platformsContainer}>
+        </Title>
+        <PlatformsContainer>
           {game.platforms.map((platform) => (
-            <View key={platform.id} style={styles.platform}>
-              <Image
+            <Platform key={platform.id}>
+              <PlatformIcon
                 source={platform.icon}
-                style={[
-                  styles.platformIcon,
-                  { tintColor: theme.iconNonActive },
-                ]}
+                tintColor={theme.iconNonActive}
               />
-            </View>
+            </Platform>
           ))}
           {game.platforms.map((platform, index) => (
-            <View key={platform.id} style={styles.platform}>
-              <Text style={[styles.platformText, { color: theme.text2 }]}>
+            <Platform key={platform.id}>
+              <PlatformText color={theme.text2}>
                 {platform.name}
                 {index < game.platforms.length - 1 && ","}
-              </Text>
-            </View>
+              </PlatformText>
+            </Platform>
           ))}
-        </View>
-      </View>
-      <View style={styles.priceContainer}>
-        <View style={styles.priceBox}>
+        </PlatformsContainer>
+      </InfoContainer>
+      <PriceContainer>
+        <PriceBox>
           {game.discount > 0 && (
-            <Text style={[styles.oldPrice, { color: theme.text2 }]}>
-              ${game.price}
-            </Text>
+            <OldPrice color={theme.text2}>${game.price}</OldPrice>
           )}
-          <Text style={[styles.newPrice, { color: theme.text1 }]}>
+          <NewPrice color={theme.text1}>
             ${Math.round(game.price - game.price * game.discount)}
-          </Text>
-        </View>
+          </NewPrice>
+        </PriceBox>
         {game.discount > 0 && (
-          <View style={styles.discountBox}>
-            <Text style={[styles.discountText, { color: theme.text1 }]}>
+          <DiscountBox>
+            <DiscountText color={theme.text1}>
               -{Math.round(game.discount * 100)}%
-            </Text>
-          </View>
+            </DiscountText>
+          </DiscountBox>
         )}
-      </View>
-    </View>
+      </PriceContainer>
+    </Item>
   );
 };
 
-const styles = StyleSheet.create({
-  item: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  image: {
-    width: 72,
-    height: 50,
-    borderRadius: 8,
-    resizeMode: "cover",
-  },
-  infoContainer: {
-    flex: 1,
-    marginLeft: 10,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  platformsContainer: {
-    flexDirection: "row",
-    marginTop: 5,
-  },
-  platform: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginRight: 4,
-  },
-  platformIcon: {
-    width: 11,
-    height: 14,
-    marginRight: 5,
-  },
-  platformText: {
-    fontSize: 12,
-  },
-  priceContainer: {
-    alignItems: "flex-end",
-  },
-  oldPrice: {
-    textDecorationLine: "line-through",
-    fontFamily: "pingfang-sc-regular",
-    fontSize: 12,
-  },
-  newPrice: {
-    fontFamily: "pingfang-sc-regular",
-    fontSize: 18,
-  },
-  priceBox: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-    gap: 5,
-  },
-  discountBox: {
-    backgroundColor: "#16A34A",
-    padding: 4,
-    borderRadius: 5,
-    marginTop: 4,
-  },
-  discountText: {
-    fontSize: 12,
-    fontFamily: "pingfang-sc-regular",
-  },
-});
+const Item = styled.View`
+  flex-direction: row;
+  align-items: center;
+  padding-horizontal: 20px;
+  padding-vertical: 8px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+`;
+
+const GameImage = styled.Image`
+  width: 72px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+`;
+
+const InfoContainer = styled.View`
+  flex: 1;
+  margin-left: 10px;
+`;
+
+const Title = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${(props) => props.color || "black"};
+`;
+
+const PlatformsContainer = styled.View`
+  flex-direction: row;
+  margin-top: 5px;
+`;
+
+const Platform = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-right: 4px;
+`;
+
+const PlatformIcon = styled.Image`
+  width: 11px;
+  height: 14px;
+  margin-right: 5px;
+  fill: ${(props) => props.tintColor || "black"};
+`;
+
+const PlatformText = styled.Text`
+  font-size: 12px;
+  color: ${(props) => props.color || "black"};
+`;
+
+const PriceContainer = styled.View`
+  align-items: flex-end;
+`;
+
+const PriceBox = styled.View`
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 5px;
+`;
+
+const OldPrice = styled.Text`
+  text-decoration-line: line-through;
+  font-family: "pingfang-sc-regular";
+  font-size: 12px;
+  color: ${(props) => props.color || "black"};
+`;
+
+const NewPrice = styled.Text`
+  font-family: "pingfang-sc-regular";
+  font-size: 18px;
+  color: ${(props) => props.color || "black"};
+`;
+
+const DiscountBox = styled.View`
+  background-color: #16a34a;
+  padding: 4px;
+  border-radius: 5px;
+  margin-top: 4px;
+`;
+
+const DiscountText = styled.Text`
+  font-size: 12px;
+  font-family: "pingfang-sc-regular";
+  color: ${(props) => props.color || "black"};
+`;
 
 export default Game;

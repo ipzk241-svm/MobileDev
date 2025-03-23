@@ -1,6 +1,7 @@
 import React from "react";
+import { View, Text } from "react-native";
 import { useTheme } from "../config/ThemeContext";
-import { StyleSheet, Text, View } from "react-native";
+import styled from "styled-components/native";
 
 const Friends = () => {
   const { theme } = useTheme();
@@ -10,37 +11,31 @@ const Friends = () => {
   ];
 
   return (
-    <View style={styles.chatContainer}>
+    <ChatContainer>
       {friendsData.map((friend) => (
-        <View key={friend.id} style={styles.chatItem}>
-          <Text style={{ color: theme.text1 }}>{friend.name}</Text>
-          <Text
-            style={{ color: friend.status === "online" ? "green" : "gray" }}
-          >
-            {friend.status}
-          </Text>
-        </View>
+        <ChatItem key={friend.id}>
+          <NameText color={theme.text1}>{friend.name}</NameText>
+          <StatusText status={friend.status}>{friend.status}</StatusText>
+        </ChatItem>
       ))}
-    </View>
+    </ChatContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  chatItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#333",
-  },
-  chatContainer:{
-  },
-  unread: {
-    color: "white",
-    backgroundColor: "blue",
-    borderRadius: 10,
-    width: 20,
-    textAlign: "center",
-    marginLeft: 5,
-  },
-});
+const ChatContainer = styled.View``;
+
+const ChatItem = styled.View`
+  padding: 10px;
+  border-bottom-width: 1px;
+  border-bottom-color: #333;
+`;
+
+const NameText = styled.Text`
+  color: ${(props) => props.color || "black"};
+`;
+
+const StatusText = styled.Text`
+  color: ${(props) => (props.status === "online" ? "green" : "gray")};
+`;
 
 export default Friends;

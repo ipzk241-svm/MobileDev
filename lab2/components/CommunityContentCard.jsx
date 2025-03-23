@@ -1,61 +1,61 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image } from "react-native";
 import { useTheme } from "../config/ThemeContext";
 import CardHeader from "./CardHeader";
 import SocialActions from "./SocialActions";
+import styled from "styled-components/native";
 
 const CommunityContentCard = ({ content }) => {
   const { theme } = useTheme();
 
   return (
-    <View style={styles.cardContainer}>
+    <CardContainer>
       <CardHeader
         source={content.source}
         published={content.published}
         theme={theme}
       />
-      <Image style={styles.contentImage} source={content.image.url} />
-      <Text style={[styles.title, { color: theme.text1 }]}>
-        {content.title}
-      </Text>
-      <Text style={[styles.description, { color: theme.text2 }]}>
-        {content.description}
-      </Text>
+      <ContentImage source={content.image.url} />
+      <Title color={theme.text1}>{content.title}</Title>
+      <Description color={theme.text2}>{content.description}</Description>
       <SocialActions
         likes={content.engagement.likes}
         comments={content.engagement.comments}
         theme={theme}
         onSharePress={() => alert("Shared!")}
       />
-    </View>
+    </CardContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  cardContainer: {
-    borderRadius: 8,
-    marginVertical: 10,
-    padding: 20,
-    gap: 15,
-  },
-  contentImage: {
-    width: "100%",
-    height: 200,
-    resizeMode: "contain",
-    borderRadius: 5,
-  },
-  title: {
-    fontFamily: "ABeeZee-Regular",
-    fontSize: 16,
-    letterSpacing: -0.32,
-    lineHeight: 22,
-  },
-  description: {
-    fontFamily: "ABeeZee-Regular",
-    fontSize: 14,
-    letterSpacing: -0.28,
-    lineHeight: 22,
-  },
-});
+const CardContainer = styled.View`
+  border-radius: 8px;
+  margin-vertical: 10px;
+  padding: 20px;
+  gap: 15px;
+`;
+
+const ContentImage = styled.Image`
+  width: 100%;
+  height: 200px;
+  resize-mode: contain;
+  border-radius: 5px;
+`;
+
+const Title = styled.Text`
+  font-family: "ABeeZee-Regular";
+  font-size: 16px;
+  letter-spacing: -0.32px;
+  line-height: 22px;
+  color: ${(props) => props.color || "black"};
+`;
+
+const Description = styled.Text`
+  font-family: "ABeeZee-Regular";
+  font-size: 14px;
+  letter-spacing: -0.28px;
+  line-height: 22px;
+  color: ${(props) => props.color || "black"};
+`;
 
 export default CommunityContentCard;

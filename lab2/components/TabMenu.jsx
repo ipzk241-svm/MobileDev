@@ -1,16 +1,11 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-} from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useTheme } from "../config/ThemeContext";
+import styled from "styled-components/native";
 
 const TabMenu = ({
   tabs = [],
-  initialTab = tabs[0].id,
+  initialTab = tabs[0]?.id,
   tabContainerStyle,
   tabStyle,
   activeTabStyle,
@@ -21,31 +16,21 @@ const TabMenu = ({
   const [activeTab, setActiveTab] = useState(initialTab);
 
   const renderTab = (item) => (
-    <TouchableOpacity
+    <Tab
       key={item.id}
-      style={[
-        styles.tab,
-        tabStyle,
-        activeTab === item.id && [styles.activeTab, activeTabStyle],
-        {
-          flex: 1,
-          backgroundColor:
-            activeTab === item.id ? theme.tabActive : theme.tabInactive,
-        },
-      ]}
+      style={[tabStyle, activeTab === item.id && activeTabStyle]}
+      backgroundColor={
+        activeTab === item.id ? theme.tabActive : theme.tabInactive
+      }
       onPress={() => setActiveTab(item.id)}
     >
-      <Text
-        style={[
-          styles.tabText,
-          tabTextStyle,
-          { color: theme.text2 },
-          activeTab === item.id && [{ color: theme.text1 }],
-        ]}
+      <TabText
+        style={tabTextStyle}
+        color={activeTab === item.id ? theme.text1 : theme.text2}
       >
         {item.label}
-      </Text>
-    </TouchableOpacity>
+      </TabText>
+    </Tab>
   );
 
   const renderContent = () => {
@@ -54,53 +39,55 @@ const TabMenu = ({
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <View
-        style={[
-          styles.tabContainer,
-          tabContainerStyle,
-          styles.tabList,
-          { backgroundColor: theme.borderColor },
-        ]}
+    <Container backgroundColor={theme.background}>
+      <TabContainer
+        style={tabContainerStyle}
+        backgroundColor={theme.borderColor}
       >
-        <View style={styles.tabRow}>{tabs.map((item) => renderTab(item))}</View>
-      </View>
-      <View style={[styles.contentContainer, contentContainerStyle]}>
+        <TabRow>{tabs.map((item) => renderTab(item))}</TabRow>
+      </TabContainer>
+      <ContentContainer style={contentContainerStyle}>
         {renderContent()}
-      </View>
-    </View>
+      </ContentContainer>
+    </Container>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  tabContainer: {
-    justifyContent: "space-between",
-  },
-  tabRow: {
-    flexDirection: "row",
-    width: "100%",
-  },
-  tab: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  tabText: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  tabList: {
-    borderRadius: 7,
-    padding: 2,
-  },
-  contentContainer: {
-    flex: 1,
-  },
-});
+const Container = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.backgroundColor || "transparent"};
+`;
+
+const TabContainer = styled.View`
+  justify-content: space-between;
+  border-radius: 7px;
+  padding: 2px;
+  background-color: ${(props) => props.backgroundColor || "transparent"};
+`;
+
+const TabRow = styled.View`
+  flex-direction: row;
+  width: 100%;
+`;
+
+const Tab = styled.TouchableOpacity`
+  flex: 1;
+  padding-vertical: 10px;
+  padding-horizontal: 20px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.backgroundColor || "transparent"};
+`;
+
+const TabText = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: ${(props) => props.color || "black"};
+`;
+
+const ContentContainer = styled.View`
+  flex: 1;
+`;
 
 export default TabMenu;
