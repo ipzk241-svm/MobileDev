@@ -40,7 +40,7 @@ const Clicker = () => {
   const flingLeftRef = useRef();
 
   useEffect(() => {
-    updateProgress("score", score);
+    updateProgress("score", 1);
   }, [score]);
 
   const handleSingleTap = (event) => {
@@ -59,7 +59,7 @@ const Clicker = () => {
 
   const handleLongPress = (event) => {
     if (event.nativeEvent.state === State.ACTIVE) {
-      setScore((prev) => prev + 5);
+      setScore((prev) => prev + 1);
       updateProgress("longPress", 1);
     }
   };

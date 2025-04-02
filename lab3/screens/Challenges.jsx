@@ -35,6 +35,7 @@ const Challenges = () => {
 const ChallengesList = styled.View`
   flex: 1;
   padding: 20px;
+  padding-top: 60px;
 `;
 
 export default Challenges;
