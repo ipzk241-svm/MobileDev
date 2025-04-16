@@ -28,6 +28,7 @@ export default function App() {
   });
 
   OneSignal.login(EXTERNAL_ID);
+  OneSignal.User.pushSubscription.optIn();
   AsyncStorage.setItem("externalId", EXTERNAL_ID);
 
   return <ToDo />;
