@@ -9,27 +9,29 @@ export default function App() {
   const EXTERNAL_ID = "svm-24-1";
   const APP_ID = Constants.expoConfig.extra.oneSignalAppId;
 
-  OneSignal.Debug.setLogLevel(LogLevel.Verbose);
-  OneSignal.initialize(APP_ID);
-  OneSignal.Notifications.requestPermission(true);
+  useEffect(() => {
+    OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+    OneSignal.initialize(APP_ID);
+    OneSignal.Notifications.requestPermission(true);
 
-  OneSignal.Notifications.addEventListener(
-    "foregroundWillDisplay",
-    async (event) => {
-      console.log("Notification received in foreground:", event.notification);
-      event.preventDefault();
-      event.notification.display();
-    }
-  );
+    OneSignal.Notifications.addEventListener(
+      "foregroundWillDisplay",
+      async (event) => {
+        console.log("Notification received in foreground:", event.notification);
+        event.preventDefault();
+        event.notification.display();
+      }
+    );
 
-  OneSignal.Notifications.addEventListener("click", async (event) => {
-    const notification = event.getNotification();
-    console.log("Notification clicked:", notification);
-  });
+    OneSignal.Notifications.addEventListener("click", async (event) => {
+      const notification = event.getNotification();
+      console.log("Notification clicked:", notification);
+    });
 
-  OneSignal.login(EXTERNAL_ID);
-  OneSignal.User.pushSubscription.optIn();
-  AsyncStorage.setItem("externalId", EXTERNAL_ID);
+    OneSignal.login(EXTERNAL_ID);
+    OneSignal.User.pushSubscription.optIn();
+    AsyncStorage.setItem("externalId", EXTERNAL_ID);
+  }, []);
 
   return <ToDo />;
 }
