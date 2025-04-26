@@ -7,6 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 import MainScreen from "./screens/MainScreen";
 import FilesScreen from "./screens/FilesScreen";
 import * as FileSystem from "expo-file-system";
+import DirectoryStack from "./screens/DirectoryStack";
 
 const Tab = createBottomTabNavigator();
 const directoryPath = FileSystem.documentDirectory + "AppData/";
@@ -33,6 +34,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
+          headerShown: false,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
@@ -49,7 +51,7 @@ export default function App() {
         })}
       >
         <Tab.Screen name="Home" component={MainScreen} />
-        <Tab.Screen name="Directory" component={FilesScreen} />
+        <Tab.Screen name="Directory" component={DirectoryStack} />
       </Tab.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
