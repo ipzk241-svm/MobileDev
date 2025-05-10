@@ -178,10 +178,10 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   saveButton: {
-    backgroundColor: "#2ecc71", // зелений
+    backgroundColor: "#2ecc71",
   },
   logoutButton: {
-    backgroundColor: "#e74c3c", // червоний
+    backgroundColor: "#e74c3c", 
   },
 });
 

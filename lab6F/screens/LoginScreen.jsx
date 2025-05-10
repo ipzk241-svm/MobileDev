@@ -54,19 +54,19 @@ const LoginScreen = ({ navigation }) => {
         title={loading ? "Logging in..." : "Log In"}
         onPress={handleLogin}
         disabled={loading}
-        color="#4CAF50" // Зелений колір для кнопки входу
+        color="#4CAF50" 
       />
       <View style={styles.buttonSpacing} />
       <Button
         title="Go to SignUp"
         onPress={() => navigation.navigate("SignUp")}
-        color="#2196F3" // Блакитний колір для кнопки реєстрації
+        color="#2196F3" 
       />
       <View style={styles.buttonSpacing} />
       <Button
         title="Go to Reset Password"
         onPress={() => navigation.navigate("ResetPass")}
-        color="#FF5722" // Помаранчевий колір для кнопки скидання паролю
+        color="#FF5722" 
       />
     </View>
   );

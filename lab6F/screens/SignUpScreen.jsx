@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { auth } from "../firebase/config";
 import { useAuth } from "../contexts/AuthContext";
-import { useNavigation } from "@react-navigation/native";
 
 const SignUpScreen = ({ navigation }) => {
   const { setLoggedInUser } = useAuth();
@@ -102,10 +101,10 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   signUpButton: {
-    backgroundColor: "#2ecc71", 
+    backgroundColor: "#2ecc71",
   },
   goToLoginButton: {
-    backgroundColor: "#3498db", 
+    backgroundColor: "#3498db",
   },
 });
 

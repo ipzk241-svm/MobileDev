@@ -19,11 +19,10 @@ import { useNavigation } from "@react-navigation/native";
 function LogoutScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showDeleteFields, setShowDeleteFields] = useState(false); // Стейт для показу полів
-  const [showConfirmDelete, setShowConfirmDelete] = useState(false); // Стейт для підтвердження видалення
+  const [showDeleteFields, setShowDeleteFields] = useState(false); 
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false); 
   const [loading, setLoading] = useState(false);
 
-  // Функція для виведення користувача
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -34,7 +33,6 @@ function LogoutScreen({ navigation }) {
       });
   };
 
-  // Функція для видалення користувача
   const handleDeleteAccount = () => {
     const user = auth.currentUser;
     if (user) {
