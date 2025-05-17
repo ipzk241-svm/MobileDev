@@ -1,14 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
-import {
-  View,
-  Text,
-  Button,
-  ActivityIndicator,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 import { AuthContext } from "../contexts/AuthContext";
 import api from "../services/api";
+import UserCard from "../components/UserCard";
+import LogoutButton from "../components/LogoutButton";
 
 const ProfileScreen = () => {
   const { logout, userId } = useContext(AuthContext);
@@ -41,20 +36,8 @@ const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Профіль користувача</Text>
-      {userData ? (
-        <View style={styles.card}>
-          <Text style={styles.label}>Ім'я:</Text>
-          <Text style={styles.value}>{userData.name || "Невідомо"}</Text>
-
-          <Text style={styles.label}>Email:</Text>
-          <Text style={styles.value}>{userData.email}</Text>
-        </View>
-      ) : (
-        <Text style={styles.noDataText}>Дані користувача не знайдені.</Text>
-      )}
-      <TouchableOpacity style={styles.logoutButton} onPress={logout}>
-        <Text style={styles.logoutButtonText}>Вийти</Text>
-      </TouchableOpacity>
+      <UserCard user={userData} />
+      <LogoutButton onLogout={logout} />
     </View>
   );
 };
@@ -79,45 +62,5 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     color: "#333",
     alignSelf: "center",
-  },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 15,
-    padding: 25,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 5,
-    marginBottom: 40,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#555",
-    marginTop: 10,
-  },
-  value: {
-    fontSize: 20,
-    fontWeight: "500",
-    color: "#111",
-    marginTop: 4,
-  },
-  noDataText: {
-    fontSize: 16,
-    color: "#999",
-    alignSelf: "center",
-    marginBottom: 40,
-  },
-  logoutButton: {
-    backgroundColor: "#d32f2f",
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  logoutButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "600",
   },
 });

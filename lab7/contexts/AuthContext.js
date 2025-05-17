@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
       );
 
       const token = response.data.idToken;
-      const localId = response.data.localId; // отут localId теж приходить!
+      const localId = response.data.localId; 
 
       await AsyncStorage.setItem("userToken", token);
       await AsyncStorage.setItem("userId", localId);
