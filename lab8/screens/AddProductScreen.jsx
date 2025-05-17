@@ -10,6 +10,7 @@ import {
   Image,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
 import { useDispatch } from "react-redux";
 import { addProductAsync } from "../store/slices/productsSlice";
 
@@ -17,7 +18,7 @@ const AddProductScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [description, setDescription] = useState(""); 
+  const [description, setDescription] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,6 +31,28 @@ const AddProductScreen = ({ navigation }) => {
     })();
   }, []);
 
+  // Функція копіювання фото у локальне сховище застосунку
+  const saveImageLocally = async (uri) => {
+    try {
+      // Отримаємо назву файлу
+      const filename = uri.split("/").pop();
+
+      // Новий шлях у папці застосунку
+      const newPath = FileSystem.documentDirectory + filename;
+
+      // Копіюємо файл
+      await FileSystem.copyAsync({
+        from: uri,
+        to: newPath,
+      });
+
+      return newPath;
+    } catch (error) {
+      console.log("Помилка копіювання файлу:", error);
+      return uri; 
+    }
+  };
+
   const pickImage = async () => {
     try {
       const result = await ImagePicker.launchImageLibraryAsync({
@@ -39,7 +62,8 @@ const AddProductScreen = ({ navigation }) => {
       });
 
       if (!result.canceled) {
-        setImageUrl(result.assets[0].uri);
+        const localUri = await saveImageLocally(result.assets[0].uri);
+        setImageUrl(localUri);
       }
     } catch (error) {
       console.log("Помилка вибору зображення:", error);
@@ -61,7 +85,7 @@ const AddProductScreen = ({ navigation }) => {
       title,
       price: parseFloat(price),
       imageUrl,
-      description, 
+      description,
     };
 
     try {
