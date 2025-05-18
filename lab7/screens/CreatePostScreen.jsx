@@ -1,12 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { View, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { AuthContext } from "../contexts/AuthContext";
 import api from "../services/api";
 
-const CreatePostScreen = ({ navigation }) => {
+const CreatePostScreen = ({ navigation, route }) => {
   const { userId } = useContext(AuthContext);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const editingPost = route.params?.post || null;
+
+  const [title, setTitle] = useState(editingPost?.title || "");
+  const [body, setBody] = useState(editingPost?.body || "");
   const [loading, setLoading] = useState(false);
 
   const handleSave = async () => {
@@ -17,16 +19,29 @@ const CreatePostScreen = ({ navigation }) => {
 
     setLoading(true);
     try {
-      await api.post("/posts.json", {
-        title,
-        body,
-        userId,
-        createdAt: new Date().toISOString(),
-      });
-      Alert.alert("Успіх", "Пост створено!");
+      if (editingPost) {
+        await api.put(`/posts/${editingPost.id}.json`, {
+          ...editingPost,
+          title,
+          body,
+        });
+        Alert.alert("Успіх", "Пост оновлено!");
+      } else {
+        await api.post("/posts.json", {
+          title,
+          body,
+          userId,
+          createdAt: new Date().toISOString(),
+        });
+        Alert.alert("Успіх", "Пост створено!");
+      }
+
       navigation.goBack();
     } catch (error) {
-      Alert.alert("Помилка", "Не вдалося створити пост");
+      Alert.alert(
+        "Помилка",
+        editingPost ? "Не вдалося оновити пост" : "Не вдалося створити пост"
+      );
       console.error(error);
     } finally {
       setLoading(false);
@@ -49,7 +64,7 @@ const CreatePostScreen = ({ navigation }) => {
         multiline
       />
       <Button
-        title={loading ? "Збереження..." : "Зберегти"}
+        title={loading ? "Збереження..." : editingPost ? "Оновити" : "Зберегти"}
         onPress={handleSave}
         disabled={loading}
       />

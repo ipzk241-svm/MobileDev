@@ -82,10 +82,20 @@ const PostsScreen = () => {
         data={posts}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <PostItem title={item.title} body={item.body} />
+          <PostItem
+            id={item.id}
+            title={item.title}
+            body={item.body}
+            userId={item.userId}
+            createdAt={item.createdAt}
+            onDeleted={(deletedId) =>
+              setPosts((prev) => prev.filter((p) => p.id !== deletedId))
+            }
+          />
         )}
         contentContainerStyle={{ paddingVertical: 10 }}
       />
+
       <TouchableOpacity
         style={styles.fab}
         onPress={() => navigation.navigate("CreatePost")}
